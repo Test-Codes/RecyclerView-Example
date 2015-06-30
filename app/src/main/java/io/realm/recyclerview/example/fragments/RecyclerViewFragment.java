@@ -29,7 +29,10 @@ import io.realm.recyclerview.example.networks.Api;
  */
 public class RecyclerViewFragment extends Fragment implements SwipeRefreshLayout_.OnRefreshListener, RealmChangeListener {
 
+    String REALM_NAME;
     Realm realm;
+
+    int layoutRes;
 
     RecyclerView recyclerView;
     RecyclerViewAdapter adapter;
@@ -38,10 +41,15 @@ public class RecyclerViewFragment extends Fragment implements SwipeRefreshLayout
 
     private static final int ANIMATION_DURATION = 500;
 
+    public RecyclerViewFragment() {
+        REALM_NAME = "RecyclerView.realm";
+        layoutRes = android.R.layout.simple_list_item_2;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        realm = Realm.getInstance(new RealmConfiguration.Builder(getActivity()).name("RecyclerView.realm").build());
+        realm = Realm.getInstance(new RealmConfiguration.Builder(getActivity()).name(REALM_NAME).build());
 
         View view = inflater.inflate(R.layout.fragment_recyclerview, null);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -58,7 +66,7 @@ public class RecyclerViewFragment extends Fragment implements SwipeRefreshLayout
         swipeRefreshLayout.setColorSchemeResources(R.color.realm_red, R.color.realm_blue);
 
         RealmResults<Post> realmResults = realm.where(Post.class).findAll();
-        adapter = new RecyclerViewAdapter(realmResults);
+        adapter = new RecyclerViewAdapter(realmResults, layoutRes);
         recyclerView.setAdapter(adapter);
         realm.addChangeListener(this);
 

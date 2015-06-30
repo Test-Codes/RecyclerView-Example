@@ -15,9 +15,11 @@ import io.realm.recyclerview.example.models.Post;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.SimpleViewHolder> {
 
     RealmResults<Post> realmResults;
+    int layoutRes;
 
-    public RecyclerViewAdapter(RealmResults<Post> realmResults) {
+    public RecyclerViewAdapter(RealmResults<Post> realmResults, int layoutRes) {
         this.realmResults = realmResults;
+        this.layoutRes = layoutRes;
     }
 
     @Override
@@ -29,7 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.
                 from(parent.getContext()).
-                inflate(android.R.layout.simple_list_item_2, parent, false);
+                inflate(layoutRes, parent, false);
         return new SimpleViewHolder(itemView);
     }
 

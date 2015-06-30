@@ -26,6 +26,7 @@ import io.realm.recyclerview.example.networks.Api;
  */
 public class ListViewFragment extends Fragment implements AbsListView.OnScrollListener, SwipeRefreshLayout_.OnRefreshListener {
 
+    private static final String REALM_NAME = "ListView.realm";
     Realm realm;
 
     ListView listView;
@@ -35,7 +36,7 @@ public class ListViewFragment extends Fragment implements AbsListView.OnScrollLi
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        realm = Realm.getInstance(new RealmConfiguration.Builder(getActivity()).name("ListView.realm").build());
+        realm = Realm.getInstance(new RealmConfiguration.Builder(getActivity()).name(REALM_NAME).build());
 
         View view = inflater.inflate(R.layout.fragment_listview, null);
         listView = (ListView) view.findViewById(android.R.id.list);

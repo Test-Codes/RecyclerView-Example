@@ -8,13 +8,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import io.realm.recyclerview.example.fragments.CardViewFragment;
 import io.realm.recyclerview.example.fragments.ListViewFragment;
 import io.realm.recyclerview.example.fragments.RecyclerViewFragment;
 import io.realm.recyclerview.example.fragments.ScrollViewFragment;
 
 public class MainActivity extends AppCompatActivity  {
 
-    private static final int ITEM_COUNT = 3;
+    private static final int ITEM_COUNT = 4;
 
     /**
      * Fragment Adapter
@@ -37,8 +38,10 @@ public class MainActivity extends AppCompatActivity  {
                 case 1:
                     return new ListViewFragment();
                 case 2:
-                default:
                     return new RecyclerViewFragment();
+                case 3:
+                default:
+                    return new CardViewFragment();
             }
         }
     }
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity  {
         tabLayout.addTab(tabLayout.newTab().setText("ScrollView"));
         tabLayout.addTab(tabLayout.newTab().setText("ListView"));
         tabLayout.addTab(tabLayout.newTab().setText("RecyclerView"));
+        tabLayout.addTab(tabLayout.newTab().setText("CardView"));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 

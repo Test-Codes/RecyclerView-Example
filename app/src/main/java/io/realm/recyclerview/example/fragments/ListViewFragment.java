@@ -3,7 +3,7 @@ package io.realm.recyclerview.example.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout_;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +24,13 @@ import io.realm.recyclerview.example.networks.Api;
 /**
  * Created by TheFinestArtist on 6/29/15.
  */
-public class ListViewFragment extends Fragment implements AbsListView.OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
+public class ListViewFragment extends Fragment implements AbsListView.OnScrollListener, SwipeRefreshLayout_.OnRefreshListener {
 
     Realm realm;
 
     ListView listView;
     ListAdapter adapter;
-    SwipeRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout_ swipeRefreshLayout;
 
     @Nullable
     @Override
@@ -39,7 +39,7 @@ public class ListViewFragment extends Fragment implements AbsListView.OnScrollLi
 
         View view = inflater.inflate(R.layout.fragment_listview, null);
         listView = (ListView) view.findViewById(android.R.id.list);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout_) view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.realm_red, R.color.realm_blue);
 
         RealmResults<Post> realmResults = realm.where(Post.class).findAll();
@@ -56,13 +56,15 @@ public class ListViewFragment extends Fragment implements AbsListView.OnScrollLi
     /**
      * OnScrollListener
      */
+    private static final int THRESHOLD = 3;
+
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
     }
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        if (!swipeRefreshLayout.isRefreshing() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 3)) {
+        if (!swipeRefreshLayout.isRefreshing() && (totalItemCount - visibleItemCount) <= (firstVisibleItem + THRESHOLD)) {
             loadMoreData();
         }
     }

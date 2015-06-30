@@ -14,6 +14,8 @@ import io.realm.recyclerview.example.fragments.ScrollViewFragment;
 
 public class MainActivity extends AppCompatActivity  {
 
+    private static final int ITEM_COUNT = 3;
+
     /**
      * Fragment Adapter
      */
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity  {
 
         @Override
         public int getCount() {
-            return 3;
+            return ITEM_COUNT;
         }
 
         @Override
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    private MainFragmentAdapter adapter;
+    MainFragmentAdapter adapter;
     TabLayout tabLayout;
     ViewPager viewPager;
 
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity  {
 
         adapter = new MainFragmentAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(2);
+        viewPager.setOffscreenPageLimit(ITEM_COUNT - 1);
 
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.addTab(tabLayout.newTab().setText("ScrollView"));

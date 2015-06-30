@@ -3,7 +3,7 @@ package io.realm.recyclerview.example.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout_;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +23,13 @@ import io.realm.recyclerview.example.networks.Api;
 /**
  * Created by TheFinestArtist on 6/29/15.
  */
-public class ScrollViewFragment extends Fragment implements ViewTreeObserver.OnScrollChangedListener, SwipeRefreshLayout.OnRefreshListener {
+public class ScrollViewFragment extends Fragment implements ViewTreeObserver.OnScrollChangedListener, SwipeRefreshLayout_.OnRefreshListener {
 
     Realm realm;
 
     ScrollView scrollView;
     LinearLayout linearLayout;
-    SwipeRefreshLayout swipeRefreshLayout;
+    SwipeRefreshLayout_ swipeRefreshLayout;
 
     @Nullable
     @Override
@@ -39,7 +39,7 @@ public class ScrollViewFragment extends Fragment implements ViewTreeObserver.OnS
         View view = inflater.inflate(R.layout.fragment_scrollview, null);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
+        swipeRefreshLayout = (SwipeRefreshLayout_) view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setColorSchemeResources(R.color.realm_red, R.color.realm_blue);
 
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -52,9 +52,11 @@ public class ScrollViewFragment extends Fragment implements ViewTreeObserver.OnS
     /**
      * OnScrollChangedListener
      */
+    private static final int THRESHOLD = 800;
+
     @Override
     public void onScrollChanged() {
-        if (!swipeRefreshLayout.isRefreshing() && linearLayout.getHeight() <= scrollView.getScrollY() + scrollView.getHeight() + 800) {
+        if (!swipeRefreshLayout.isRefreshing() && linearLayout.getHeight() <= scrollView.getScrollY() + scrollView.getHeight() + THRESHOLD) {
             loadMoreData();
         }
     }

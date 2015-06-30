@@ -1,6 +1,7 @@
 package io.realm.recyclerview.example.networks;
 
 import android.os.Handler;
+import android.os.Looper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,22 +18,25 @@ public class Api {
         void onResponseRetrieved(E object, Exception e);
     }
 
+    private static final int POST_PER_PAGE = 15;
+    private static final int DELAY = 2000;
+
     public static void getFeed(final int page, final OnResponseListener<List<Post>> listener) {
-        new Handler().postDelayed(new Runnable() {
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 List<Post> posts = new ArrayList<Post>();
-                for (int i = 0; i < 15; i++) {
+                for (int i = 0; i < POST_PER_PAGE; i++) {
                     Post post = new Post();
-                    post.setTitle("Title #" + (page * 15 + i + 1));
-                    post.setMessage(getRandomString(100));
+                    post.setTitle("Title #" + (page * POST_PER_PAGE + i + 1));
+                    post.setMessage(getRandomString(120));
                     posts.add(post);
                 }
 
                 if (listener != null)
                     listener.onResponseRetrieved(posts, null);
             }
-        }, 2000);
+        }, DELAY);
     }
 
     private static final String ALLOWED_CHARACTERS = "qwertyuiopasdfghjklzxcvbnm";

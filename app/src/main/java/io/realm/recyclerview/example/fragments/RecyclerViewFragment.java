@@ -71,7 +71,7 @@ public class RecyclerViewFragment extends Fragment implements SwipeRefreshLayout
         realm.addChangeListener(this);
 
         swipeRefreshLayout.setOnRefreshListener(this);
-        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
